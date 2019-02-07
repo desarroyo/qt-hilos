@@ -15,7 +15,7 @@ void HiloUI::doWork()
         emit updateCount(i);
         i++;
         qApp->processEvents();
-        PortableSleep::msleep(10);
+        PortableSleep::msleep(1000);
     }
     emit finished();
 }

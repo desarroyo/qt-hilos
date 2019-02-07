@@ -2,6 +2,7 @@
 
 # compiled output
 /debug
+/release
 /tmp
 
 

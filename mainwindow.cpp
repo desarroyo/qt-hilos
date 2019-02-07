@@ -156,7 +156,7 @@ void MainWindow::reinicia(){
 
 void MainWindow::updateInfiniteCount(int cnt)
 {
-    ui.lblCount->setText(QString::number(cnt));
+    ui.lblCount->setText(QString::number(cnt)+" seg.");
     ui.pbHilo01->setValue(cont_a);
 }
 
