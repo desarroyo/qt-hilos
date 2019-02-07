@@ -1,25 +1,13 @@
-#include "mainwindow.h"
 #include <QApplication>
-#include <stdio.h>
-#include <stdlib.h>
-#include <pthread.h>
 
-struct arg_struct {
-    int arg1;
-    int arg2;
-    int pb;
-};
+#include <mainwindow.h>
 
-
-
-int main(int argc, char *argv[])
+int main(int argc, char **argv)
 {
-    QApplication a(argc, argv);
+    QApplication app(argc, argv);
+
     MainWindow w;
-    printf("RANDOM1\n");
     w.show();
-printf("RANDOM2\n");
 
-
-    return a.exec();
+    return app.exec();
 }

@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-01-31T21:00:51
+# Project created by QtCreator 2019-02-07T02:13:14
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = hilos
+TARGET = qt-hilos-tarea1
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -26,10 +26,15 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    hilo_abcd.cpp \
+    hilo_ui.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    portablesleep.h \
+    hilo_abcd.h \
+    hilo_ui.h
 
 FORMS += \
         mainwindow.ui
