@@ -70,13 +70,13 @@ MainWindow::MainWindow(QWidget *parent)
     ui.lblHilo04_velocidad->setStyleSheet("QLabel { color : gray; }");
 
     ui.pbHilo01->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #99d4d9;width: 20px;}");
-    ui.pbHilo01->setStyleSheet(QString::fromUtf8("text-align: center;"));
+    ui.pbHilo01->setAlignment(Qt::AlignCenter);
     ui.pbHilo02->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #daa482;width: 20px;}");
-    ui.pbHilo02->setStyleSheet(QString::fromUtf8("text-align: center;"));
+    ui.pbHilo02->setAlignment(Qt::AlignCenter);
     ui.pbHilo03->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #44aa44;width: 20px;}");
-    ui.pbHilo03->setStyleSheet(QString::fromUtf8("text-align: center;"));
+    ui.pbHilo03->setAlignment(Qt::AlignCenter);
     ui.pbHilo04->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #71cfae;width: 20px;}");
-    ui.pbHilo04->setStyleSheet(QString::fromUtf8("text-align: center;"));
+    ui.pbHilo04->setAlignment(Qt::AlignCenter);
 
     vel_a = 10;
     ui.slHilo01->setValue(vel_a);
