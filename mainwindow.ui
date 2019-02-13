@@ -418,11 +418,17 @@
          <height>23</height>
         </rect>
        </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
        <property name="value">
-        <number>100</number>
+        <number>250</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
        </property>
        <property name="format">
-        <string/>
+        <string>%v</string>
        </property>
       </widget>
       <widget class="QLabel" name="lblminslider_6">
@@ -539,7 +545,7 @@
         </rect>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>200</number>
@@ -548,7 +554,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="tracking">
         <bool>true</bool>
@@ -604,7 +610,7 @@
         </rect>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>200</number>
@@ -613,7 +619,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="tracking">
         <bool>true</bool>
@@ -635,7 +641,7 @@
         </rect>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>200</number>
@@ -644,7 +650,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="tracking">
         <bool>true</bool>
@@ -707,11 +713,17 @@
          <height>23</height>
         </rect>
        </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
        <property name="value">
-        <number>100</number>
+        <number>250</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
        </property>
        <property name="format">
-        <string/>
+        <string>%v</string>
        </property>
       </widget>
       <widget class="QProgressBar" name="pbHilo02">
@@ -723,11 +735,17 @@
          <height>23</height>
         </rect>
        </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
        <property name="value">
-        <number>100</number>
+        <number>250</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
        </property>
        <property name="format">
-        <string/>
+        <string>%v</string>
        </property>
       </widget>
       <widget class="QLabel" name="lblms_2">
@@ -776,7 +794,7 @@
         </rect>
        </property>
        <property name="minimum">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="maximum">
         <number>200</number>
@@ -785,7 +803,7 @@
         <number>10</number>
        </property>
        <property name="value">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="tracking">
         <bool>true</bool>
@@ -806,11 +824,17 @@
          <height>23</height>
         </rect>
        </property>
+       <property name="maximum">
+        <number>250</number>
+       </property>
        <property name="value">
-        <number>100</number>
+        <number>250</number>
+       </property>
+       <property name="textVisible">
+        <bool>true</bool>
        </property>
        <property name="format">
-        <string/>
+        <string>%v</string>
        </property>
       </widget>
       <widget class="QLabel" name="lblminslider_5">
@@ -1037,7 +1061,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Carrera de Hilos</string>
+        <string>Sincronización múltiple</string>
        </property>
       </widget>
       <widget class="QLabel" name="lblTiempoTranscurrido">
@@ -1063,6 +1087,202 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QSlider" name="slVelocidad">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>350</y>
+         <width>121</width>
+         <height>22</height>
+        </rect>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+       <property name="maximum">
+        <number>3</number>
+       </property>
+       <property name="singleStep">
+        <number>1</number>
+       </property>
+       <property name="pageStep">
+        <number>1</number>
+       </property>
+       <property name="value">
+        <number>1</number>
+       </property>
+       <property name="tracking">
+        <bool>true</bool>
+       </property>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="tickInterval">
+        <number>20</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblms_5">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>320</y>
+         <width>121</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string>Velocidad</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblHilo01_velocidad_2">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>370</y>
+         <width>31</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string>1</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblHilo01_velocidad_3">
+       <property name="geometry">
+        <rect>
+         <x>60</x>
+         <y>370</y>
+         <width>41</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string>2</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
+       </property>
+      </widget>
+      <widget class="QLabel" name="lblHilo01_velocidad_4">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>370</y>
+         <width>31</width>
+         <height>21</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Segoe UI Black</family>
+         <pointsize>10</pointsize>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <property name="midLineWidth">
+        <number>0</number>
+       </property>
+       <property name="text">
+        <string>3</string>
+       </property>
+       <property name="textFormat">
+        <enum>Qt::PlainText</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="margin">
+        <number>5</number>
        </property>
       </widget>
       <zorder>pbHilo04</zorder>
@@ -1099,6 +1319,11 @@
       <zorder>btnRandom</zorder>
       <zorder>label</zorder>
       <zorder>lblTiempoTranscurrido</zorder>
+      <zorder>slVelocidad</zorder>
+      <zorder>lblms_5</zorder>
+      <zorder>lblHilo01_velocidad_2</zorder>
+      <zorder>lblHilo01_velocidad_3</zorder>
+      <zorder>lblHilo01_velocidad_4</zorder>
      </widget>
     </item>
    </layout>

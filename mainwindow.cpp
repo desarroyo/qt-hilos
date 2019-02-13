@@ -18,10 +18,17 @@
 #  include <unistd.h>
 #endif
 
+int periodo = 250;
+
 int vel_a= 0;
 int vel_b= 0;
 int vel_c= 0;
 int vel_d= 0;
+
+int q_a= 0;
+int q_b= 0;
+int q_c= 0;
+int q_d= 0;
 
 
 int cont_a= 0;
@@ -42,35 +49,6 @@ struct arg_struct {
 };
 
 
-void *ejecutaSegundoPlano(void *puntero){
-
-    printf("Ejecutando el proceso\n");
-    arg_struct *args = (arg_struct *)args;
-    MainWindow *mw = (MainWindow *)args->mw;
-    QProgressBar *pb = (QProgressBar *)args->pb;
-
-    long milliSec = 100;
-
-    for(cont_a = 0; cont_a < 100; cont_a = cont_a +5)
-        {
-            //nanosleep((const struct timespec[]){{0, 200000000L}}, NULL);
-            #ifdef Q_OS_WIN
-                Sleep(uint(milliSec));
-            #else
-                struct timespec ts = { milliSec / 1000, (milliSec % 1000) * 1000 * 1000 };
-                nanosleep(&ts, NULL);
-            #endif
-
-            //cont_a = cont_a+5;
-            //QMetaObject::invokeMethod(args->ui, "setEditText", Q_ARG(QString, "random string"));
-            //mw->setEditText("2");
-            //pb->setValue(5);
-            //qApp->processEvents();
-            //args->updateInfiniteCount(1);
-        }
-
-    return NULL;
-}
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -78,6 +56,9 @@ MainWindow::MainWindow(QWidget *parent)
       countRunning(false)
 {
     ui.setupUi(this);
+    this->setWindowTitle("Sincronización múltiple");
+
+
     ui.lblHilo01->setStyleSheet("QLabel { color : blue; }");
     ui.lblHilo02->setStyleSheet("QLabel { color : red; }");
     ui.lblHilo03->setStyleSheet("QLabel { color : green; }");
@@ -89,23 +70,27 @@ MainWindow::MainWindow(QWidget *parent)
     ui.lblHilo04_velocidad->setStyleSheet("QLabel { color : gray; }");
 
     ui.pbHilo01->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #99d4d9;width: 20px;}");
+    ui.pbHilo01->setStyleSheet(QString::fromUtf8("text-align: center;"));
     ui.pbHilo02->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #daa482;width: 20px;}");
+    ui.pbHilo02->setStyleSheet(QString::fromUtf8("text-align: center;"));
     ui.pbHilo03->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #44aa44;width: 20px;}");
+    ui.pbHilo03->setStyleSheet(QString::fromUtf8("text-align: center;"));
     ui.pbHilo04->setStyleSheet("QProgressBar {border: 2px solid grey;border-radius: 5px;background-color: #fbf3ec;}QProgressBar::chunk {background-color: #71cfae;width: 20px;}");
+    ui.pbHilo04->setStyleSheet(QString::fromUtf8("text-align: center;"));
 
-    vel_a = rand() %200;
+    vel_a = 10;
     ui.slHilo01->setValue(vel_a);
     ui.pbHilo01->setValue(cont_a);
 
-    vel_b = rand() %200;
+    vel_b = 100;
     ui.slHilo02->setValue(vel_b);
     ui.pbHilo02->setValue(cont_b);
 
-    vel_c = rand() %200;
+    vel_c = 20;
     ui.slHilo03->setValue(vel_c);
     ui.pbHilo03->setValue(cont_c);
 
-    vel_d = rand() %200;
+    vel_d = 189;
     ui.slHilo04->setValue(vel_d);
     ui.pbHilo04->setValue(cont_d);
 
@@ -117,40 +102,96 @@ void MainWindow::updateCount(int cnt, int hilo)
 {
     switch (hilo) {
         case 1:
-            cont_a = cont_a+1;
-            ui.pbHilo01->setValue(cont_a);
-            break;
+        cont_a = cont_a+1;
+        q_a = q_a+1;
+        ui.pbHilo01->setValue(cont_a);
+        break;
     case 2:
         cont_b = cont_b+1;
+        q_b = q_b+1;
         ui.pbHilo02->setValue(cont_b);
         break;
     case 3:
         cont_c = cont_c+1;
+        q_c = q_c+1;
         ui.pbHilo03->setValue(cont_c);
         break;
     case 4:
         cont_d = cont_d+1;
+        q_d = q_d+1;
         ui.pbHilo04->setValue(cont_d);
         break;
     }
 
+    if(q_a >= workerA->getQuantum() && cont_a < periodo){
+        workerA->doWait(true);
+        q_a = 0;
+    }else if(cont_a >= periodo){
+        workerA->doWait(true);
+        q_a = 0;
+    }
+    if(q_b >= workerB->getQuantum() && cont_b < periodo){
+        workerB->doWait(true);
+        q_b = 0;
+    }else if(cont_b >= periodo){
+        workerB->doWait(true);
+        q_b = 0;
+    }
+    if(q_c >= workerC->getQuantum() && cont_c < periodo){
+        workerC->doWait(true);
+        q_c = 0;
+    }else if(cont_c >= periodo){
+        workerC->doWait(true);
+        q_c = 0;
+    }
+    if(q_d >= workerD->getQuantum() && cont_d < periodo){
+        workerD->doWait(true);
+        q_d = 0;
+    }else if(cont_d >= periodo){
+        workerD->doWait(true);
+        q_d = 0;
+    }
+
+    if(workerA->isWaiting() && workerB->isWaiting() && workerC->isWaiting() && workerD->isWaiting()){
+
+        if(cont_a >= periodo && cont_b >= periodo && cont_c >= periodo && cont_d >= periodo ){
+            reinicia();
+        }
+
+         if(cont_a < periodo)
+            workerA->doWait(false);
+         if(cont_b < periodo)
+            workerB->doWait(false);
+         if(cont_c < periodo)
+            workerC->doWait(false);
+         if(cont_d < periodo)
+            workerD->doWait(false);
+
+    }
+
+    /*
     if(cont_a >= 100 && cont_b >= 100 && cont_c >= 100 && cont_d >= 100 ){
         reinicia();
     }
+    */
 
 }
 
 void MainWindow::reinicia(){
-    cont_a= 0;
+    cont_a = 0;
+    q_a = 0;
     ui.pbHilo01->setValue(cont_a);
 
-    cont_b= 0;
+    cont_b = 0;
+    q_b = 0;
     ui.pbHilo02->setValue(cont_b);
 
-    cont_c= 0;
+    cont_c = 0;
+    q_c = 0;
     ui.pbHilo03->setValue(cont_c);
 
-    cont_d= 0;
+    cont_d = 0;
+    q_d = 0;
     ui.pbHilo04->setValue(cont_d);
 }
 
@@ -179,10 +220,24 @@ void MainWindow::startCount()
     workerThreadC = new QThread;
     workerThreadD = new QThread;
 
-    workerA       = new HiloABCD(1, ui.slHilo01->value(), 0, 100);
-    workerB       = new HiloABCD(2, ui.slHilo02->value(), 0, 100);
-    workerC       = new HiloABCD(3, ui.slHilo03->value(), 0, 100);
-    workerD       = new HiloABCD(4, ui.slHilo04->value(), 0, 100);
+    int velocidad = 1;
+
+    switch(ui.slVelocidad->value()){
+        case 1:
+            velocidad = 1;
+        break;
+        case 2:
+            velocidad = 10;
+        break;
+        case 3:
+            velocidad = 100;
+        break;
+    }
+
+    workerA       = new HiloABCD(1, ui.slHilo01->value(), 0, 100, velocidad);
+    workerB       = new HiloABCD(2, ui.slHilo02->value(), 0, 100, velocidad);
+    workerC       = new HiloABCD(3, ui.slHilo03->value(), 0, 100, velocidad);
+    workerD       = new HiloABCD(4, ui.slHilo04->value(), 0, 100, velocidad);
 
 
     workerA->moveToThread(workerThreadA);
@@ -239,6 +294,7 @@ void MainWindow::startCount()
 
 void MainWindow::startInfiniteCount()
 {
+
     QThread             *workerThread;
     HiloUI *worker;
 
@@ -288,8 +344,10 @@ void MainWindow::countFinished()
 void MainWindow::infiniteCountFinished()
 {
     infiniteCountRunning = false;
-    cont_a= 0;
+    /*
+    cont_a = 0;
     ui.pbHilo01->setValue(cont_a);
+    */
 }
 
 void MainWindow::connectSignalsSlots()
@@ -319,19 +377,42 @@ void MainWindow::on_btnRandom_clicked()
 
 void MainWindow::actualizaVelocidadHilo(){
     if(workerA){
-        workerA->velocidad(vel_a);
+        workerA->setQuantum(vel_a);
     }
     if(workerB){
-        workerB->velocidad(vel_b);
+        workerB->setQuantum(vel_b);
     }
     if(workerC){
-        workerC->velocidad(vel_c);
+        workerC->setQuantum(vel_c);
     }
     if(workerD){
-        workerD->velocidad(vel_d);
+        workerD->setQuantum(vel_d);
     }
 }
 
+void MainWindow::on_slVelocidad_valueChanged(int value)
+{
+    int velocidad = 1;
+
+    switch(value){
+        case 1:
+            velocidad = 1;
+        break;
+        case 2:
+            velocidad = 10;
+        break;
+        case 3:
+            velocidad = 100;
+        break;
+    }
+
+    if(workerA){
+        workerA->setVelocidad(velocidad);
+        workerB->setVelocidad(velocidad);
+        workerC->setVelocidad(velocidad);
+        workerD->setVelocidad(velocidad);
+    }
+}
 
 void MainWindow::on_slHilo01_valueChanged(int value)
 {

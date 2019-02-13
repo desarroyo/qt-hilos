@@ -35,6 +35,9 @@ private slots:
 
         void on_slHilo04_valueChanged(int value);
 
+        void on_slVelocidad_valueChanged(int value);
+
+
         void reinicia();
         void actualizaVelocidadHilo();
 
